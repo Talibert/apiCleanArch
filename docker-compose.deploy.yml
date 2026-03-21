@@ -8,7 +8,7 @@ services:
       - api-network
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db-api-default:5432/meu_projeto
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db-api-clean-arch:5432/meu_projeto
       - SPRING_DATASOURCE_USERNAME=usuario
       - SPRING_DATASOURCE_PASSWORD=senha_forte
 
