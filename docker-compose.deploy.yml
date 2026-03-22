@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    container_name: spring-app
+    container_name: spring-app-clean-arch
     ports:
       - "8080:8080"
     networks:
