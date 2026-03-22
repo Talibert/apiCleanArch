@@ -1,5 +1,7 @@
-package com.example.api_docker.infra.repository;
+package com.example.api_docker.infra.persistence.repository;
 
+import com.example.api_docker.infra.persistence.entity.UserJpaEntity;
+import com.example.api_docker.infra.persistence.mapper.UserMapper;
 import com.example.api_docker.user.entity.User;
 import com.example.api_docker.user.gateway.UserRepository;
 import lombok.AllArgsConstructor;
@@ -13,12 +15,15 @@ public class UserRepositoryPostgresql implements UserRepository {
 
     @Override
     public void save(User user){
-        jpaRepository.save(user);
+        UserJpaEntity entity = UserMapper.toJpa(user);
+        jpaRepository.save(entity);
     }
 
     @Override
     public User findById(Long id) {
-        return jpaRepository.findById(id)
+        UserJpaEntity entity = jpaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return UserMapper.toDomain(entity);
     }
 }
