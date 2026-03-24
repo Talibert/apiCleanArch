@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 
 @AllArgsConstructor
 @Repository
-public class UserRepositoryPostgresql implements UserRepository {
+public class UserRepositoryImpl implements UserRepository {
 
-    private final JpaUserRepository jpaRepository;
+    private final UserRepositoryJpa jpaRepository;
 
     @Override
     public void save(User user){

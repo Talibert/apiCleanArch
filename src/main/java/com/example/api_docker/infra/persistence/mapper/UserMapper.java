@@ -6,16 +6,13 @@ import com.example.api_docker.user.entity.User;
 public class UserMapper {
 
     public static User toDomain(UserJpaEntity entity) {
-        return new User(
-                entity.getId(),
-                entity.getName()
-        );
+        return new User(entity.getId(), entity.getName());
     }
 
     public static UserJpaEntity toJpa(User user) {
-        UserJpaEntity entity = new UserJpaEntity();
+        UserJpaEntity entity = new UserJpaEntity(user.getName());
         entity.setId(user.getId());
-        entity.setName(user.getName());
+
         return entity;
     }
 }

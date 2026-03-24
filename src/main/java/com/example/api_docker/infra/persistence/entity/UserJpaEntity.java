@@ -2,12 +2,20 @@ package com.example.api_docker.infra.persistence.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity(name = "users")
+@Entity
 @Table(name = "users")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserJpaEntity extends AbstractJpaEntity {
 
     private String name;
 }
+
+
