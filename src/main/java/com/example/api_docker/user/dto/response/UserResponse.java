@@ -1,15 +1,15 @@
-package com.example.api_docker.user.entity;
+package com.example.api_docker.user.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-public class User {
+public class UserResponse {
     private Long id;
     private String name;
 }

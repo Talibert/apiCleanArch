@@ -7,13 +7,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CreateUserUseCase {
+public class GetUserByIdUseCase {
 
     private final UserRepository userRepository;
 
-    public User execute(String name) {
-        User user = User.builder().name(name).build();
-
-        return userRepository.save(user);
+    public User execute(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
     }
 }

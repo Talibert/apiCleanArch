@@ -4,26 +4,47 @@ import com.example.api_docker.infra.persistence.entity.UserJpaEntity;
 import com.example.api_docker.infra.persistence.mapper.UserMapper;
 import com.example.api_docker.user.entity.User;
 import com.example.api_docker.user.gateway.UserRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-@AllArgsConstructor
+import java.util.List;
+import java.util.Optional;
+
 @Repository
+@RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 
-    private final UserRepositoryJpa jpaRepository;
+    private final UserRepositoryJpa userRepositoryJpa;
+    private final UserMapper userMapper;
 
     @Override
-    public void save(User user){
-        UserJpaEntity entity = UserMapper.toJpa(user);
-        jpaRepository.save(entity);
+    public User save(User user) {
+        UserJpaEntity entity = userMapper.toJpa(user);
+        UserJpaEntity saved = userRepositoryJpa.save(entity);
+
+        return userMapper.toDomain(saved);
     }
 
     @Override
-    public User findById(Long id) {
-        UserJpaEntity entity = jpaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    public Optional<User> findById(Long id) {
+        return userRepositoryJpa.findById(id).map(u -> userMapper.toDomain(u));
+    }
 
-        return UserMapper.toDomain(entity);
+    @Override
+    public List<User> findAll() {
+        return userRepositoryJpa.findAll().stream().map(u -> userMapper.toDomain(u)).toList();
+    }
+
+    @Override
+    public User update(User user) {
+        UserJpaEntity entity = userMapper.toJpa(user);
+        UserJpaEntity updated = userRepositoryJpa.save(entity);
+
+        return userMapper.toDomain(updated);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        userRepositoryJpa.deleteById(id);
     }
 }

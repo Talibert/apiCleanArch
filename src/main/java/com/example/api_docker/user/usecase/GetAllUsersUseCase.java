@@ -5,15 +5,15 @@ import com.example.api_docker.user.gateway.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
-public class CreateUserUseCase {
+public class GetAllUsersUseCase {
 
     private final UserRepository userRepository;
 
-    public User execute(String name) {
-        User user = User.builder().name(name).build();
-
-        return userRepository.save(user);
+    public List<User> execute() {
+        return userRepository.findAll();
     }
 }

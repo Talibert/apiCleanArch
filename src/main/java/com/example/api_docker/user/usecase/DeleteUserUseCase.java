@@ -1,19 +1,19 @@
 package com.example.api_docker.user.usecase;
 
-import com.example.api_docker.user.entity.User;
 import com.example.api_docker.user.gateway.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CreateUserUseCase {
+public class DeleteUserUseCase {
 
     private final UserRepository userRepository;
 
-    public User execute(String name) {
-        User user = User.builder().name(name).build();
+    public void execute(Long id) {
+        userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
 
-        return userRepository.save(user);
+        userRepository.deleteById(id);
     }
 }
