@@ -1,5 +1,6 @@
 package com.example.api_docker.user.usecase;
 
+import com.example.api_docker.infra.exception.UserNotFoundException;
 import com.example.api_docker.user.entity.User;
 import com.example.api_docker.user.gateway.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,6 @@ public class GetUserByIdUseCase {
 
     public User execute(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 }

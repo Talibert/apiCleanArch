@@ -25,19 +25,19 @@ public class UserController {
     private final DeleteUserUseCase deleteUserUseCase;
 
     @PostMapping
-    public ResponseEntity<UserResponse> create(@Valid @RequestBody CreateUserRequest request) {
+    public ResponseEntity<UserResponse> criaUsuario(@Valid @RequestBody CreateUserRequest request) {
         User user = createUserUseCase.execute(request.getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(toDTO(user));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> findById(@PathVariable Long id) {
+    public ResponseEntity<UserResponse> buscaUsuarioPeloId(@PathVariable Long id) {
         User user = getUserByIdUseCase.execute(id);
         return ResponseEntity.ok(toDTO(user));
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponse>> findAll() {
+    public ResponseEntity<List<UserResponse>> buscaUsuarios() {
         List<UserResponse> users = getAllUsersUseCase.execute()
                 .stream()
                 .map(this::toDTO)
@@ -46,14 +46,14 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> update(@PathVariable Long id,
-                                               @Valid @RequestBody UpdateUserRequest request) {
+    public ResponseEntity<UserResponse> atualizaUsuario(@PathVariable Long id,
+                                                        @Valid @RequestBody UpdateUserRequest request) {
         User user = updateUserUseCase.execute(id, request.getName());
         return ResponseEntity.ok(toDTO(user));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> deletaUsuario(@PathVariable Long id) {
         deleteUserUseCase.execute(id);
         return ResponseEntity.noContent().build();
     }
