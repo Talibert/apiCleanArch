@@ -6,18 +6,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 
-class CreateUserUseCaseTest extends UserUseCaseAbstractTest{
+class GetAllUsersUseCaseTest extends UserUseCaseAbstractTest{
 
     @Spy
     @InjectMocks
-    private CreateUserUseCase createUserUseCase;
+    private GetAllUsersUseCase getAllUsersUseCase;
 
     @Test
     void testExecute(){
-        User user = User.builder().name("Guilherme").build();
+        getAllUsersUseCase.execute();
 
-        createUserUseCase.execute("Guilherme");
-
-        Mockito.verify(userRepository).save(user);
+        Mockito.verify(userRepository).findAll();
     }
 }

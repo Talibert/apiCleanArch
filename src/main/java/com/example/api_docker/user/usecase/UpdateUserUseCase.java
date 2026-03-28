@@ -13,11 +13,10 @@ public class UpdateUserUseCase {
     private final UserRepository userRepository;
 
     public User execute(Long id, String name) {
-        userRepository.findById(id)
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 
-        User updatedUser = User.builder()
-                .id(id)
+        User updatedUser = user.toBuilder()
                 .name(name)
                 .build();
 
