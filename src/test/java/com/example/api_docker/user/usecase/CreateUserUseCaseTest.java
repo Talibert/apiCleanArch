@@ -1,11 +1,10 @@
 package com.example.api_docker.user.usecase;
 
+import com.example.api_docker.user.entity.User;
 import com.example.api_docker.user.gateway.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
+import org.junit.jupiter.api.Test;
+import org.mockito.*;
 
 class CreateUserUseCaseTest {
 
@@ -21,7 +20,12 @@ class CreateUserUseCaseTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    @Test
     void testExecute(){
+        User user = User.builder().name("Guilherme").build();
 
+        createUserUseCase.execute("Guilherme");
+
+        Mockito.verify(userRepository).save(user);
     }
 }
